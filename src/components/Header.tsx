@@ -13,6 +13,7 @@ export default function Header() {
     const fetchCategories = useAppStore((state) => state.fetchCategories)
     const categories = useAppStore((state) => state.categories)
     const searchRecipes = useAppStore((state) => state.searchRecipes)
+    const showNotification =useAppStore((state) => state.showNotification)
     
     useEffect(() => {
         fetchCategories()
@@ -30,7 +31,7 @@ export default function Header() {
 
         //Validar
         if(Object.values(searchFilters).includes('')) {
-            console.log('Todos los campos son obligatorios')
+            showNotification({text: 'Todos los campos son obligatorios', error: true})
             return
         }
 
@@ -49,6 +50,7 @@ export default function Header() {
                     <nav className="flex gap-4">
                         <NavLink to='/' className={({isActive}) => isActive ? "text-orange-500 uppercase font-bold" : "text-white uppercase font-bold"}>Inicio</NavLink>
                         <NavLink to='/favoritos'className={({isActive}) => isActive ? "text-orange-500 uppercase font-bold" : "text-white uppercase font-bold"}>Favoritos</NavLink>
+                        <NavLink to='/generate'className={({isActive}) => isActive ? "text-orange-500 uppercase font-bold" : "text-white uppercase font-bold"}>Generar con IA</NavLink>
                     </nav>
                 </div>
 
@@ -101,6 +103,8 @@ export default function Header() {
                                 value='Buscar Recetas'
                                 className="cursor-pointer bg-orange-800 hover:bg-orange-900 text-white font-extrabold w-full p-2 rounded-lg uppercase"
                             />
+
+
                         </div>
                     </form>
                 )}
